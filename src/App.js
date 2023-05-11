@@ -68,7 +68,6 @@ const App = () => {
         className="monster-search-box"
       />
       <Cardlist monsters={filteredMonsters} imgSet={imgSet.id} />
-      <a href="#">Learn React</a>
     </div>
   );
 };
