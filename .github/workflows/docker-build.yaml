@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # This action follows Semver and automatically bumps your version according to your commit history
       - id: tagging
@@ -27,22 +27,22 @@ jobs:
         env: 
           TAG: ${{ steps.tagging.outputs.new_tag }}
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+      - name: Set up Docker Buildx ##
+        uses: docker/setup-buildx-action@v2
 
-      - name: Login to GHCR
-        uses: docker/login-action@v1
+      - name: Login to GHCR ##
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+      - name: Build and push Docker image ##
+        uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:$TAG
+          tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:${{ env.TAG }}
 
       # - name: Update build.yaml
       #   uses: peter-evans/repository-dispatch@v1
