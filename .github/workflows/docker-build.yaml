@@ -22,7 +22,8 @@ jobs:
       # We reformat it to match Cloud Deploy's naming convention
       - name: "Reformat TAG"
         id: release
-        run: echo ''::set-output name=new_tag::${TAG//./-}''
+        #run: echo ''::set-output name=new_tag::${TAG//./-}''
+        run: echo "{new_tag}={${TAG//./-}}" >> $GITHUB_OUTPUT
         env: 
           TAG: ${{ steps.tagging.outputs.new_tag }}
 
