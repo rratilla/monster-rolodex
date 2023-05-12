@@ -30,6 +30,12 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
 
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build application
+        run: npm run build
+
       # This action follows Semver and automatically bumps your version according to your commit history
       - name: Bump version and push tag
         id: tag_version
