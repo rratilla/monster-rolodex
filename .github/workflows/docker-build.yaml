@@ -63,7 +63,7 @@ jobs:
       - name: Update app image tag
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
           repository: rratillajr/monster-rolodex-chart # Replace with the repository where the build.yaml file is located
           event-type: patch-app-image-tag
           client-payload: '{"imageTag": "${{ steps.tag_version.outputs.new_tag }}"}'
