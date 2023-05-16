@@ -1,10 +1,11 @@
 name: Build and Deploy
 
 on:
-  push:
-    branches:
-      - dev
-
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+    
 jobs:
 
   npm-test:
@@ -59,10 +60,10 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:${{ steps.tag_version.outputs.new_tag }}
 
-      # - name: Update build.yaml
-      #   uses: peter-evans/repository-dispatch@v1
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     repository: username/repo-name # Replace with the repository where the build.yaml file is located
-      #     event-type: update-build-yaml
-      #     client-payload: '{"imageTag": "${{ github.sha }}"}'
+      - name: Update app image tag
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: rratillajr/monster-rolodex-chart # Replace with the repository where the build.yaml file is located
+          event-type: patch-app-image-tag
+          client-payload: '{"imageTag": "${{ steps.tag_version.outputs.new_tag }}"}'
