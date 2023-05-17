@@ -1,11 +1,11 @@
-name: Manual Repo Dispatch
+name: Manual App Image Update
 
 on:
   workflow_dispatch:
 
 jobs:
 
-  docker-build:
+  update-app-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
