@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Development Build
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
   #   - run: npm run build --if-present
   #   - run: npm test
 
-  docker-build:
+  dev-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
