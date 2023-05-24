@@ -48,7 +48,7 @@ jobs:
       #  run: echo "short_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       - name: Set branch name as image tag
         id: new_tag 
-        run: echo "new_tag=${{ github.ref/refs\/heads\// }}" >> $GITHUB_OUTPUT
+        run: echo "new_tag=${{ github.ref.replace('refs/heads/', '') }}" >> $GITHUB_OUTPUT
 
       - name: Print message
         run: echo "Workflow triggered on branch ${{ steps.new_tag.outputs.new_tag }}"
