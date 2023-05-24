@@ -43,9 +43,15 @@ jobs:
       #     tag: ${{ steps.tag_version.outputs.new_tag }}
       #     name: Release ${{ steps.tag_version.outputs.new_tag }}
       #     body: ${{ steps.tag_version.outputs.changelog }}
-      - name: Set image tag
-        id: tag
-        run: echo "short_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      #- name: Set image tag
+      #  id: tag
+      #  run: echo "short_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      - name: Set branch name as image tag
+        id: new_tag 
+        run: echo "new_tag=${{ github.ref/refs\/heads\// }}" >> $GITHUB_OUTPUT
+
+      - name: Print message
+        run: echo "Workflow triggered on branch ${{ steps.new_tag.outputs.new_tag }}"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -63,7 +69,7 @@ jobs:
           context: .
           push: true
           #tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:${{ steps.tag.outputs.short_sha }}
-          tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:${{ github.ref }}
+          tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:${{ steps.new_tag.outputs.new_tag }}
 
       - name: Update app image tag
         uses: peter-evans/repository-dispatch@v1
@@ -71,4 +77,4 @@ jobs:
           token: ${{ secrets.PAT }}
           repository: rratillajr/monster-rolodex-chart
           event-type: deploy-to-dev
-          client-payload: '{"imageTag": "${{ github.ref }}"}'
+          client-payload: '{"imageTag": "${{ steps.new_tag.outputs.new_tag }}"}'
