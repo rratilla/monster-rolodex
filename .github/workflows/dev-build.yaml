@@ -4,6 +4,9 @@ on:
   push:
     branches-ignore:
       - stage
+      - prod
+      - rc-v1.*
+      - release-v1.*
       - main
   workflow_dispatch:
 
