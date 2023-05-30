@@ -69,5 +69,5 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           repository: rratillajr/monster-rolodex-chart
-          event-type: deploy-to-dev
+          event-type: deploy-to-stage
           client-payload: '{"imageTag": "${{ github.ref_name }}"}'
