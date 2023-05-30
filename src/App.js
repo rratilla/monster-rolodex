@@ -61,7 +61,7 @@ const App = () => {
         onRadioChangeHandler={onRadioChange}
         className="monster-radio"
       />
-      <h1 className="app-title">{imgSet.name} Rolodex Test</h1>
+      <h1 className="app-title">{imgSet.name} Rolodex: Development</h1>
       <SearchBox
         onChangeHandler={onSearchChange}
         placeholder={`Search ${imgSet.name}`}
